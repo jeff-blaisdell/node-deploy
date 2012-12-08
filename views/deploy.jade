@@ -1,0 +1,30 @@
+each profile in profiles
+	p
+		strong #{profile.name}
+	ul
+		li
+			i BUILD
+			ol
+				li Build Hudson Job 
+					a(href='#{profile.deploy.url}') #{profile.deploy.name}
+					ul
+						each param in profile.params
+							li
+								b #{param.name} = 
+								span #{param.value}
+				li Wait for job to finish.
+		li
+			i VALIDATE
+			ol
+				li Validate SVN Revision XXX
+		li
+			i REPEAT FOR ADDITIONAL SERVERS
+		li
+			i ROLLBACK NOTES	
+			ul
+				li Previous SVN Revision = XXX
+				li Previous Artifact Version = XXX		
+	br
+	br
+
+

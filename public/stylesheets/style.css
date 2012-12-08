@@ -1,0 +1,64 @@
+body {
+	width: 800px;
+	margin: 0px 20px;
+	font-family: FCKaiser, Arial, Helvetica, sans-serif;
+	color: #FFFEFC;
+	background-color: #1B1C12;
+}
+
+h1, h2 {
+	color: #FFAB00;
+}
+
+ul.sortable, ul.sortable li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+label {
+	display: block;
+}
+
+div {
+	margin: 10px 0px
+}
+
+p.parameters {
+	margin: 10px 50px;
+	display: none;
+}
+
+li.active > p {
+	display: block;
+}
+
+input[type="text"] {
+	width: 500px;
+}
+
+.ui-button .ui-button-text {
+	line-height: 1.0;
+	font-size: small;
+	font-family: FCKaiser, Arial, Helvetica, sans-serif;
+}
+
+div.deployment-markup, div.deployment-preview {
+	color: #1B1C12;
+	background-color: #FFFEFC;
+}
+
+div.deployment-markup xmp, div.deployment-preview {
+	max-height: 400px;
+}
+
+div.deployment-markup xmp {
+	overflow-x: scroll;
+	margin: 20px 20px;
+}
+
+div.deployment-preview {
+	padding: 20px 20px;
+	overflow: scroll;
+}
+
