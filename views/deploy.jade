@@ -8,7 +8,7 @@ each profile in profiles
 				li Build Hudson Job 
 					a(href='#{profile.deploy.url}') #{profile.deploy.name}
 					ul
-						each param in profile.params
+						each param in profile.deploy.params
 							li
 								b #{param.name} = 
 								span #{param.value}
@@ -16,14 +16,27 @@ each profile in profiles
 		li
 			i VALIDATE
 			ol
-				li Validate SVN Revision XXX
+				each validate in profile.validate
+					if 'SITE_TEST' === validate.type
+						li Verify all Test Pass
+							br
+							a(href='#{validate.src}') (#{validate.src})
+					if 'SVN_REVISION' === validate.type
+						li Validate SVN Revision - #{validate.value}
+							br
+							a(href='#{validate.src}') (#{validate.src})
 		li
 			i REPEAT FOR ADDITIONAL SERVERS
 		li
 			i ROLLBACK NOTES	
 			ul
-				li Previous SVN Revision = XXX
-				li Previous Artifact Version = XXX		
+				each rollback in profile.rollback
+					if 'ROLLBACK_VERSION' === rollback.type
+						li #{rollback.desc} Previous SVN Revision = #{rollback.value}
+					else if 'ROLLBACK_NEXUS_VERSION' === rollback.type
+						li #{rollback.desc} Previous SVN Revision = #{rollback.value}
+					else if 'ROLLBACK_SVN_REVISION'
+						li #{rollback.desc} Previous Artifact Version = #{rollback.value}		
 	br
 	br
 

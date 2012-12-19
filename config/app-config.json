@@ -1,0 +1,9 @@
+{
+	"nexus" : {
+		"hostname" : "hive.jostens.com",
+		"path" : "/nexus/service/local/data_index?q=${artifact}",
+		"port" : 8081,
+		"repo" : "releases"
+	},
+	"httpPort" :8000
+}

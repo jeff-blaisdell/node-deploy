@@ -14,6 +14,13 @@ $(document).ready(function() {
 
 var createNotes = function() {
 	var profiles = [];
+
+	$('.select-input').each(function() {
+		var value = $(this).val();
+		$(this).next('input[type=hidden]').val(value);
+	});
+
+
 	$('li.profile.active').each(function() {
 		var profile = new Profile($(this).attr('id'));
 		profiles.push(profile);

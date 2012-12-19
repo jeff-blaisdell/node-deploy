@@ -10,12 +10,43 @@ block content
 						input(type='checkbox', class='profile-activator')
 						span #{profile.name}
 					p.parameters
-						each param in profile.params
+						each param in profile.deploy.params
 							label #{param.name}
 							if 'TEXT' === param.type
-								input(type='text', name='#{param.name}')
+								input(type='text', name='#{param.name}', value='#{param.value}')
 							else if 'DESCRIPTION' === param.type
 								input(type='text', name='#{param.name}', value='#{param.value}', disabled)
+							else if 'DROPDOWN' === param.type
+								select.select-input
+									for item in param.options
+										option(selected=param.value == item) #{item}
+								input(type='hidden', name='#{param.name}', value='#{param.value}')
+							else if 'DIRECTORY' === param.type
+								select.select-input
+									for item in param.options
+										option(selected=param.value == item) #{item}
+								input(type='hidden', name='#{param.name}', value='#{param.value}')	
+							else if 'NEXUS_ARTIFACT' === param.type
+								select.select-input
+									for item in param.options
+										option(selected=param.value == item) #{item}
+								input(type='hidden', name='#{param.name}', value='#{param.value}')	
+					p.parameters
+						each rollback in profile.rollback
+							if 'ROLLBACK_VERSION' === rollback.type
+								label #{rollback.desc} Previous Artifact Version
+								select.select-input
+									for item in rollback.options
+										option #{item}
+								input(type='hidden', name='#{rollback.name}', value='#{rollback.value}')
+							else if 'ROLLBACK_NEXUS_VERSION' === rollback.type
+								label #{rollback.desc} Previous Artifact Version
+								select.select-input
+									for item in rollback.options
+										option #{item}
+								input(type='hidden', name='#{rollback.name}', value='#{rollback.value}')
+
+
 	button Create
 	h2 Deployment Notes Markup
 	div.deployment-markup

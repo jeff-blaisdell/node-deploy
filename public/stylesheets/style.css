@@ -1,6 +1,6 @@
 body {
 	width: 800px;
-	margin: 0px 20px;
+	margin: 20px 20px;
 	font-family: FCKaiser, Arial, Helvetica, sans-serif;
 	color: #FFFEFC;
 	background-color: #1B1C12;
@@ -31,6 +31,11 @@ p.parameters {
 
 li.active > p {
 	display: block;
+}
+
+input[disabled] {
+	background-color: #979A9C;
+	color: #202121;
 }
 
 input[type="text"] {

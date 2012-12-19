@@ -1,0 +1,14 @@
+{
+    "silent": false,
+    "uid": "Node-DeploymentServices",
+    "max": 3,
+    "killTree": true,
+    "minUptime" : 2000,
+    "spinSleepTime" : 1000,
+    "logFile": "C:\\dev\\logs\\deployment-services\\forever.log",
+    "outFile": "C:\\dev\\logs\\deployment-services\\stdout.log",
+    "errFile": "C:\\dev\\logs\\deployment-services\\stderr.log",
+    "options": [
+        "--port=8001"
+    ]
+}
