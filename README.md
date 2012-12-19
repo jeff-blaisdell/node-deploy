@@ -14,7 +14,7 @@ A simple web application built on Node.js and Express.js.  The application conta
 
 * controllers
 
-	Each controller contains 1-to-many route mappings, and controller logic for those mappings.
+	Each controller contains 1-to-many route mappings and controller logic for those mappings.
 
 * models
 	
