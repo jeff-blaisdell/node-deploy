@@ -1,0 +1,656 @@
+[
+    {
+        "id": "commerce-combined",
+        "name": "Commerce Combined",
+        "deploy": {
+            "name": "Enterprise-CommerceCombined-Deploy-PROD",
+            "url": "http://hive.com:8080/view/4%20-%20PROD%20Deploy/job/Enterprise-CommerceCombined-Deploy-PROD/",
+            "params": [
+                {
+                    "name": "DeployToServer",
+                    "value": "The server in which to deploy.",
+                    "type": "DESCRIPTION"
+                },
+                {
+                    "name": "DeployCheckoutVersion",
+                    "value": "",
+                    "type": "DIRECTORY",
+                    "src": "\\\\myfileloc\\EnterpriseServices\\Checkout\\build"
+                },
+                {
+                    "name": "DeployProfileVersion",
+                    "value": "",
+                    "type": "DIRECTORY",
+                    "src": "\\\\myfileloc\\EnterpriseServices\\UserProfile\\build"
+                },
+                {
+                    "name": "DeployCatalogVersion ",
+                    "value": "",
+                    "type": "DIRECTORY",
+                    "src": "\\\\myfileloc\\EnterpriseServices\\CatalogWeb\\build"
+                }
+            ]
+        },
+        "validate": [
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8081/apps/checkout/admin/siteTest.mvc"
+            },
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8081/apps/checkout/version.html",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/apps/checkout/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            },
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8081/apps/profile/admin/siteTest.mvc"
+            },
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8081/apps/profile/version.html",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/apps/profile/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            },
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8081/apps/catalog/admin/siteTest.mvc"
+            },
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8081/apps/catalog/version.html",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/apps/catalog/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            }
+        ],
+        "rollback": [
+            {
+                "name": "CheckoutRollbackSvnRevision",
+                "desc": "Checkout",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "www.mysite.com",
+                    "version": "/apps/checkout/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            },
+            {
+                "name": "CheckoutRollbackVersion",
+                "desc": "Checkout",
+                "type": "ROLLBACK_VERSION",
+                "src": "\\\\myfileloc\\EnterpriseServices\\Checkout\\build",
+                "value": ""
+            },
+            {
+                "name": "ProfileRollbackSvnRevision",
+                "desc": "Profile",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "www.mysite.com",
+                    "version": "/apps/profile/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            },
+            {
+                "name": "ProfileRollbackVersion",
+                "desc": "Profile",
+                "type": "ROLLBACK_VERSION",
+                "src": "\\\\myfileloc\\EnterpriseServices\\UserProfile\\build",
+                "value": ""
+            },
+            {
+                "name": "CatalogRollbackSvnRevision",
+                "desc": "Catalog",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/apps/catalog/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            },
+            {
+                "name": "CatalogRollbackVersion",
+                "desc": "Catalog",
+                "type": "ROLLBACK_VERSION",
+                "src": "\\\\myfileloc\\EnterpriseServices\\CatalogWeb\\build",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "id": "catalog-web",
+        "name": "Catalog Web",
+        "deploy": {
+            "name": "CatalogWeb-Deploy-PROD",
+            "url": "http://hive.com:8080/view/4%20-%20PROD%20Deploy/job/Enterprise-CatalogWeb-Deploy-PROD/",
+            "params": [
+                {
+                    "name": "DeployToServer",
+                    "value": "The server in which to deploy.",
+                    "type": "DESCRIPTION"
+                },
+                {
+                    "name": "DeployToVersion",
+                    "value": "",
+                    "type": "DIRECTORY",
+                    "src": "\\\\myfileloc\\EnterpriseServices\\CatalogWeb\\build"
+                }
+            ]
+        },
+        "validate": [
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8081/apps/catalog/admin/siteTest.mvc"
+            },
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8081/apps/catalog/version.html",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/apps/catalog/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            }
+        ],
+        "rollback": [
+            {
+                "name": "RollbackSvnRevision",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/apps/catalog/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            },
+            {
+                "name": "RollbackVersion",
+                "type": "ROLLBACK_VERSION",
+                "src": "\\\\myfileloc\\EnterpriseServices\\CatalogWeb\\build",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "id": "checkout",
+        "name": "Checkout",
+        "deploy": {
+            "name": "Checkout-Deploy-PROD",
+            "url": "http://hive.com:8080/view/4%20-%20PROD%20Deploy/job/Enterprise-Checkout-Deploy-PROD/",
+            "params": [
+                {
+                    "name": "DeployToServer",
+                    "value": "The server in which to deploy.",
+                    "type": "DESCRIPTION"
+                },
+                {
+                    "name": "DeployToVersion",
+                    "value": "",
+                    "type": "DIRECTORY",
+                    "src": "\\\\myfileloc\\EnterpriseServices\\Checkout\\build"
+                }
+            ]
+        },
+        "validate": [
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8081/apps/checkout/admin/siteTest.mvc"
+            },
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8081/apps/checkout/version.html",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/apps/checkout/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            }
+        ],
+        "rollback": [
+            {
+                "name": "RollbackSvnRevision",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "www.mysite.com",
+                    "version": "/apps/checkout/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            },
+            {
+                "name": "RollbackVersion",
+                "type": "ROLLBACK_VERSION",
+                "src": "\\\\myfileloc\\EnterpriseServices\\Checkout\\build",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "id": "profile",
+        "name": "User Profile",
+        "deploy": {
+            "name": "UserProfile-Deploy-PROD",
+            "url": "http://hive.com:8080/view/4%20-%20PROD%20Deploy/job/Enterprise-UserProfile-Deploy-PROD/",
+            "params": [
+                {
+                    "name": "DeployToServer",
+                    "value": "The server in which to deploy.",
+                    "type": "DESCRIPTION"
+                },
+                {
+                    "name": "DeployToVersion",
+                    "value": "",
+                    "type": "DIRECTORY",
+                    "src": "\\\\myfileloc\\EnterpriseServices\\UserProfile\\build"
+                }
+            ]
+        },
+        "validate": [
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8081/apps/profile/admin/siteTest.mvc"
+            },
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8081/apps/profile/version.html",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/apps/profile/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            }
+        ],
+        "rollback": [
+            {
+                "name": "RollbackSvnRevision",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "www.mysite.com",
+                    "version": "/apps/profile/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            },
+            {
+                "name": "RollbackVersion",
+                "type": "ROLLBACK_VERSION",
+                "src": "\\\\myfileloc\\EnterpriseServices\\UserProfile\\build",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "id": "content-library",
+        "name": "Content Library",
+        "deploy": {
+            "name": "ContentLibrary-Deploy-PROD",
+            "url": "http://hive.com:8080/view/4%20-%20PROD%20Deploy/job/ContentLibrary-Deploy-PROD/",
+            "params": [
+                {
+                    "name": "DeployToServer",
+                    "value": "The server in which to deploy.",
+                    "type": "DESCRIPTION"
+                },
+                {
+                    "name": "DeployToVersion",
+                    "value": "",
+                    "type": "DIRECTORY",
+                    "src": "\\\\myfileloc\\Jcom\\contentlibrary\\build"
+                }
+            ]
+        },
+        "validate": [
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8080/apps/content/admin/siteTest.mvc"
+            },
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8080/apps/content/version.jsp",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/apps/content/version.jsp",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            }
+        ],
+        "rollback": [
+            {
+                "name": "RollbackSvnRevision",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "www.mysite.com",
+                    "version": "/apps/content/version.jsp",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            },
+            {
+                "name": "RollbackVersion",
+                "type": "ROLLBACK_VERSION",
+                "src": "\\\\myfileloc\\Jcom\\contentlibrary\\build",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "id": "jcom",
+        "name": "mysite.com",
+        "deploy": {
+            "name": "Jcom-Deploy-INT",
+            "url": "http://hive.com:8080/view/3%20-%20INT%20Deploy/job/Jcom-Deploy-INT/",
+            "params": [
+                {
+                    "name": "DeployToServer",
+                    "value": "The server in which to deploy.",
+                    "type": "DESCRIPTION"
+                },
+                {
+                    "name": "DeployToVersion",
+                    "value": "",
+                    "type": "DIRECTORY",
+                    "src": "\\\\myfileloc\\Jcom\\jcom\\build"
+                }
+            ]
+        },
+        "validate": [
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8080/apps/jcom/version.html",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/apps/jcom/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            }
+        ],
+        "rollback": [
+            {
+                "name": "RollbackSvnRevision",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "www.mysite.com",
+                    "version": "/apps/jcom/version.html",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)"
+                }
+            },
+            {
+                "name": "RollbackVersion",
+                "type": "ROLLBACK_VERSION",
+                "src": "\\\\myfileloc\\Jcom\\jcom\\build",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "id": "catalog-services-1-5",
+        "name": "Catalog Services 1.5",
+        "deploy": {
+            "name": "Enterprise-CatalogServices-Deploy-PROD",
+            "url": "http://hive.com:8080/view/4%20-%20PROD%20Deploy/job/Enterprise-CatalogServices-Deploy-PROD/",
+            "params": [
+                {
+                    "name": "DeployToServer",
+                    "value": "The server in which to deploy.",
+                    "type": "DESCRIPTION"
+                },
+                {
+                    "name": "DeployToVersion",
+                    "value": "",
+                    "type": "DIRECTORY",
+                    "src": "\\\\myfileloc\\EnterpriseServices\\Catalog\\build"
+                },
+                {
+                    "name": "WebContextName",
+                    "value": "services#catalog#V1.5",
+                    "type": "DESCRIPTION"
+                },
+                {
+                    "name": "DeployConfigFiles",
+                    "value": "false",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "type": "DROPDOWN"
+                },
+                {
+                    "name": "DeployWAR",
+                    "value": "true",
+                    "options": [
+                        "true",
+                        "false"
+                    ],
+                    "type": "DROPDOWN"
+                }
+            ]
+        },
+        "validate": [
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8080/services/catalog/V1.5/admin/siteTest.mvc"
+            },
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8080/services/catalog/V1.4/admin/siteTest.mvc"
+            },
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8080/services/catalog/V1.1/admin/siteTest.jsp"
+            },
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8080/services/catalog/V1.5/admin/version.mvc",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/services/catalog/V1.5/admin/version.mvc",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)",
+                    "auth": "admin:adminint09"
+                }
+            }
+        ],
+        "rollback": [
+            {
+                "name": "RollbackSvnRevision",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "www.mysite.com",
+                    "version": "/services/catalog/V1.5/admin/version.mvc",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)",
+                    "auth": "admin:adminprod09"
+                }
+            },
+            {
+                "name": "RollbackVersion",
+                "type": "ROLLBACK_VERSION",
+                "src": "\\\\myfileloc\\EnterpriseServices\\Catalog\\build",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "id": "order-services-1-5",
+        "name": "Order Services 1.5",
+        "deploy": {
+            "name": "Enterprise-OrderServices-Deploy-PROD",
+            "url": "http://hive.com:8080/view/4%20-%20PROD%20Deploy/job/Enterprise-OrderServices-Deploy-PROD/",
+            "params": [
+                {
+                    "name": "DeployToServer",
+                    "value": "The server in which to deploy.",
+                    "type": "DESCRIPTION"
+                },
+                {
+                    "name": "DeployToVersion",
+                    "value": "",
+                    "type": "DIRECTORY",
+                    "src": "\\\\myfileloc\\EnterpriseServices\\Order\\build"
+                },
+                {
+                    "name": "WebContextName",
+                    "value": "services#order#V1.5",
+                    "type": "DESCRIPTION"
+                }
+            ]
+        },
+        "validate": [
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8081/services/order/V1.5/admin/siteTest.mvc"
+            },
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8081/services/order/V1.5/admin/version.mvc",
+                "svn": {
+                    "domain": "demoservices.mysite.com",
+                    "version": "/services/order/V1.5/admin/version.mvc",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)",
+                    "auth": "admin:adminint09"
+                }
+            }
+        ],
+        "rollback": [
+            {
+                "name": "RollbackSvnRevision",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "services.mysite.com",
+                    "version": "/services/order/V1.5/admin/version.mvc",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)",
+                    "auth": "admin:adminprod09"
+                }
+            },
+            {
+                "name": "RollbackVersion",
+                "type": "ROLLBACK_VERSION",
+                "src": "\\\\myfileloc\\EnterpriseServices\\Order\\build",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "id": "user-services-2-0",
+        "name": "User Services 2.0",
+        "deploy": {
+            "name": "Enterprise-UserServices-Deploy-PROD",
+            "url": "http://hive.com:8080/view/4%20-%20PROD%20Deploy/job/Enterprise-UserServices-Deploy-PROD/",
+            "params": [
+                {
+                    "name": "SnapshotVersion",
+                    "value": "",
+                    "type": "NEXUS_ARTIFACT",
+                    "artifact": "user-services"
+                },
+                {
+                    "name": "SvnBranch",
+                    "value": "trunk",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "DeployToServer",
+                    "value": "The server in which to deploy.",
+                    "type": "DESCRIPTION"
+                }
+            ]
+        },
+        "validate": [
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8082/services/user/V2.0/admin/siteTest.mvc"
+            },
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8082/services/user/V2.0/admin/version.mvc",
+                "svn": {
+                    "domain": "demoservices.mysite.com",
+                    "version": "/services/user/V2.0/admin/version.mvc",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)",
+                    "auth": "admin:admin"
+                }
+            }
+        ],
+        "rollback": [
+            {
+                "name": "RollbackSvnRevision",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "services.mysite.com",
+                    "version": "/services/user/V2.0/admin/version.mvc",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)",
+                    "auth": "admin:admin"
+                }
+            },
+            {
+                "name": "RollbackNexusVersion",
+                "type": "ROLLBACK_NEXUS_VERSION",
+                "artifact": "user-services",
+                "value": ""
+            }
+        ]
+    },
+    {
+        "id": "customer-services-1-0",
+        "name": "Customer Services 1.0",
+        "deploy": {
+            "name": "Enterprise-CustomerServices-Deploy-PROD",
+            "url": "http://hive.com:8080/view/4%20-%20PROD%20Deploy/job/Enterprise-CustomerServices-Deploy-PROD/",
+            "params": [
+                {
+                    "name": "SnapshotVersion",
+                    "value": "",
+                    "type": "NEXUS_ARTIFACT",
+                    "artifact": "customer-services"
+                },
+                {
+                    "name": "SvnBranch",
+                    "value": "trunk",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "DeployToServer",
+                    "value": "The server in which to deploy.",
+                    "type": "DESCRIPTION"
+                }
+            ]
+        },
+        "validate": [
+            {
+                "type": "SITE_TEST",
+                "src": "http://servername:8082/services/customer/V1.0/admin/siteTest.mvc"
+            },
+            {
+                "type": "SVN_REVISION",
+                "src": "http://servername:8082/services/customer/V1.0/admin/version.mvc",
+                "svn": {
+                    "domain": "demowww.mysite.com",
+                    "version": "/services/customer/V1.0/admin/version.mvc",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)",
+                    "auth": "admin:admin"
+                }
+            }
+        ],
+        "rollback": [
+            {
+                "name": "RollbackSvnRevision",
+                "type": "ROLLBACK_SVN_REVISION",
+                "svn": {
+                    "domain": "www.mysite.com",
+                    "version": "/services/customer/V1.0/admin/version.mvc",
+                    "versionRegex": "<td>SVN Revision:</td>\n*.*<b>([0-9]+)",
+                    "auth": "admin:admin"
+                }
+            },
+            {
+                "name": "RollbackVersion",
+                "type": "ROLLBACK_NEXUS_VERSION",
+                "artifact": "customer-services",
+                "value": ""
+            }
+        ]
+    }
+]

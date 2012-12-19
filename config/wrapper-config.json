@@ -1,6 +1,6 @@
 {
     "silent": false,
-    "uid": "Node-DeploymentServices",
+    "uid": "Node-Deploy",
     "max": 3,
     "killTree": true,
     "minUptime" : 2000,
