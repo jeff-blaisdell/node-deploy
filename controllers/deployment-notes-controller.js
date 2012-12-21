@@ -26,7 +26,8 @@ var index = function(req, res) {
 //	
 var deploy = function(req, res){
 	var data = JSON.parse(req.body.profiles);
-	deploymentNoteService.getNotes({'selections' : data})
+	var stgenv = req.body.stgenv;
+	deploymentNoteService.getNotes({'selections' : data, 'stgenv' : stgenv})
 	.then(function(p) {
 		res.render('deploy', { profiles: p });
 	})

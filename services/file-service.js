@@ -15,7 +15,7 @@ exports.selectFolders = function(dir) {
 		deferred.resolve(folders);
 	})
 	.fail(function(err) {
-		console.log(err);
+		console.error(err);
 		deferred.resolve(['Unknown']);	
 	})
 	.done();

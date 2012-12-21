@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$("button").button().removeClass("ui-corner-all").click(createNotes);
+	$(".create-notes-button").click(createNotes);
 	$(".sortable").sortable();
 	$(".sortable").disableSelection();
 	$("input[type='checkbox'].profile-activator").click(function() {
@@ -14,6 +14,8 @@ $(document).ready(function() {
 
 var createNotes = function() {
 	var profiles = [];
+
+	var stgenv = $('.stage-env-select').val();
 
 	$('.select-input').each(function() {
 		var value = $(this).val();
@@ -36,7 +38,7 @@ var createNotes = function() {
 		$.ajax({
 			type: 'POST',
 			url: '/deploy',
-			data: {profiles: JSON.stringify(profiles)},
+			data: {profiles: JSON.stringify(profiles), stgenv: stgenv},
 			success: function(data) {
 				$('div.deployment-markup xmp').html(data);
 				$('div.deployment-preview').html(data);

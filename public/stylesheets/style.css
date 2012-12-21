@@ -1,5 +1,5 @@
 body {
-	width: 800px;
+	min-width: 300px;
 	margin: 20px 20px;
 	font-family: FCKaiser, Arial, Helvetica, sans-serif;
 	color: #FFFEFC;
@@ -7,13 +7,48 @@ body {
 }
 
 h1, h2 {
-	color: #FFAB00;
+	color: #FFB911;
 }
 
-ul.sortable, ul.sortable li {
+select {
+	padding: 2px 2px;
+}
+
+.stage-env span {
+	margin: 5px 5px;
+}
+.sortable {
 	list-style: none;
 	margin: 0;
 	padding: 0;
+}
+
+.sortable > li {
+	margin: 10px 0;
+}
+
+.profile-label {
+	background-color: #FFFEFC;
+	color: #1B1C12;
+	font-weight: bold;
+}
+
+.profile-label:active {
+	background-color: #FFB911;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5DA57), to(#FFB911));
+	color: #1B1C12;
+	font-weight: bold;
+}
+
+.create-notes-button {
+	background-color: #FFB911;
+	width: 200px;
+	line-height: 2;
+	font-weight: bold;
+}
+
+.create-notes-button:hover {
+	background-color: #F5E032;
 }
 
 label {
@@ -24,28 +59,31 @@ div {
 	margin: 10px 0px
 }
 
-p.parameters {
+.parameters {
 	margin: 10px 50px;
+	padding: 20px 20px;
+	max-width: 500px;
 	display: none;
+	background-color: #4A4A3B;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4A4A3B), to(#1B1C12));
+	border-radius: 10px;
+	border: 1px solid #FFFEFC;
 }
 
-li.active > p {
+.active > p {
 	display: block;
 }
 
-input[disabled] {
-	background-color: #979A9C;
-	color: #202121;
+.parameters input[disabled] {
+	background-color: #000000;
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1B1C12), to(#000000));
+	color: #FFFEFC;
+	border: none;
+	padding: 5px 5px;
 }
 
-input[type="text"] {
-	width: 500px;
-}
-
-.ui-button .ui-button-text {
-	line-height: 1.0;
-	font-size: small;
-	font-family: FCKaiser, Arial, Helvetica, sans-serif;
+.parameters input[type="text"] {
+	width: 90%;
 }
 
 div.deployment-markup, div.deployment-preview {

@@ -44,7 +44,7 @@ exports.scrape = function(domain, path, regex, opts) {
 		});
 
 	}).on('error', function(e) {
-		console.log('problem with request: ' + e.message);
+		console.error('problem with request: ' + e.message);
 		deferred.resolve('Unknown');
 	}).end();
 

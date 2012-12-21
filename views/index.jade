@@ -2,11 +2,16 @@ extends layout
 
 block content
 	h1= title
+	div.stage-env
+		span In which environment would you like to stage the release?
+		select.stage-env-select
+			option(label='DEMO', value='demo')
+			option(label='QA', value='qa')
 	div.profiles
 		ul.sortable
 			each profile in profiles
 				li.profile(id='#{profile.id}')
-					label 
+					label.profile-label
 						input(type='checkbox', class='profile-activator')
 						span #{profile.name}
 					p.parameters
@@ -31,7 +36,6 @@ block content
 									for item in param.options
 										option(selected=param.value == item) #{item}
 								input(type='hidden', name='#{param.name}', value='#{param.value}')	
-					p.parameters
 						each rollback in profile.rollback
 							if 'ROLLBACK_VERSION' === rollback.type
 								label #{rollback.desc} Previous Artifact Version
@@ -47,7 +51,7 @@ block content
 								input(type='hidden', name='#{rollback.name}', value='#{rollback.value}')
 
 
-	button Create
+	button.create-notes-button Create
 	h2 Deployment Notes Markup
 	div.deployment-markup
 		xmp
